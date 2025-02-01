@@ -11,3 +11,7 @@ type UserResponse struct {
 	Username string `json:"username"`
 	Email    string `json:"email"`
 }
+
+type ErrorResponse struct {
+	Error string `json:"error"`
+}

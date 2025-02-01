@@ -1,0 +1,31 @@
+# Go-specific ignores
+/bin/
+/pkg/
+/.env
+logs/
+*.log
+*.out
+*.exe
+*.test
+*.sum
+go.work
+go.work.sum
+
+# Dependency directories
+/vendor/
+node_modules/
+
+# Go module files (keep go.mod and go.sum, but ignore temporary module files)
+!go.mod
+!go.sum
+
+# Docker-specific ignores
+docker-compose.override.yml
+.dockerignore
+
+# Editor & OS-specific files
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db

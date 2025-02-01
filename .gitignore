@@ -1,7 +1,7 @@
 # Go-specific ignores
 /bin/
 /pkg/
-/.env
+*.env
 logs/
 *.log
 *.out

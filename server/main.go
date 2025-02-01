@@ -7,6 +7,7 @@ import (
 	"github.com/MoCrespo/BlogApp/server/config"
 	"github.com/MoCrespo/BlogApp/server/database"
 	"github.com/MoCrespo/BlogApp/server/models"
+	"github.com/MoCrespo/BlogApp/server/routes"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -29,6 +30,8 @@ func main() {
 
 	fmt.Println("Database connection and migration successful!")
 	app := fiber.New()
+
+	routes.AuthRoutes(app, db)
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("Hello, World!🚀")

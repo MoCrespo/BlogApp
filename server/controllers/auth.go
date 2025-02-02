@@ -22,6 +22,15 @@ func (ac *AuthController) Register(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(dto.ErrorResponse{Error: err.Error()})
 	}
 
+	var existingUser models.User
+	result := ac.DB.Where("email = ? OR username = ?", req.Email, req.Username).First(&existingUser)
+
+	if result.Error == nil {
+		return c.Status(fiber.StatusConflict).JSON(dto.ErrorResponse{
+			Error: "User already exists",
+		})
+	}
+
 	hashedPassword, err := utils.HashPassword(req.Password)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(dto.ErrorResponse{Error: "Password hashing failed"})

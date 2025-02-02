@@ -52,3 +52,38 @@ func (ac *AuthController) Register(c *fiber.Ctx) error {
 		Email:    user.Email,
 	})
 }
+
+// controllers/auth.go
+func (ac *AuthController) Login(c *fiber.Ctx) error {
+	var req dto.UserLoginRequest
+
+	if err := c.BodyParser(&req); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(dto.ErrorResponse{
+			Error: "Invalid request body",
+		})
+	}
+
+	var user models.User
+	if err := ac.DB.Where("email = ?", req.Email).First(&user).Error; err != nil {
+		return c.Status(fiber.StatusUnauthorized).JSON(dto.ErrorResponse{
+			Error: "Invalid credentials",
+		})
+	}
+
+	if err := utils.CheckPassword(user.PasswordHash, req.Password); err != nil {
+		return c.Status(fiber.StatusUnauthorized).JSON(dto.ErrorResponse{
+			Error: "Invalid credentials",
+		})
+	}
+
+	token, err := utils.GenerateToken(user.ID)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(dto.ErrorResponse{
+			Error: "Failed to generate token",
+		})
+	}
+
+	return c.JSON(dto.TokenResponse{
+		Token: token,
+	})
+}

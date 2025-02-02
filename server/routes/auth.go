@@ -13,6 +13,7 @@ func AuthRoutes(app *fiber.App, db *gorm.DB) {
 	auth := app.Group("/auth")
 	{
 		auth.Post("/register", authController.Register)
+		auth.Post("/login", authController.Login)
 
 	}
 }

@@ -22,7 +22,7 @@ func AuthRequired(c *fiber.Ctx) error {
 	}
 
 	claims := token.Claims.(jwt.MapClaims)
-	c.Locals("userID", claims["user_id"])
+	c.Locals("userID", uint(claims["user_id"].(float64)))
 
 	return c.Next()
 }

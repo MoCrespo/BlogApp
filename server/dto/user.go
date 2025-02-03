@@ -17,6 +17,10 @@ type UserResponse struct {
 	Email    string `json:"email"`
 }
 
+type UserUpdateRequest struct {
+	Username string `json:"username" validate:"omitempty,min=3"`
+	Email    string `json:"email" validate:"omitempty,email"`
+}
 type TokenResponse struct {
 	Token string `json:"token"`
 }

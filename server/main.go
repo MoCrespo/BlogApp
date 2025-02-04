@@ -32,6 +32,7 @@ func main() {
 	app := fiber.New()
 
 	routes.AuthRoutes(app, db)
+	routes.PostRoutes(app, db)
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("Hello, World!🚀")

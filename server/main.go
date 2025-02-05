@@ -9,6 +9,7 @@ import (
 	"github.com/MoCrespo/BlogApp/server/models"
 	"github.com/MoCrespo/BlogApp/server/routes"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
 func main() {
@@ -30,6 +31,13 @@ func main() {
 
 	fmt.Println("Database connection and migration successful!")
 	app := fiber.New()
+
+	app.Use(cors.New(cors.Config{
+		AllowOrigins: "http://localhost:3000",
+		AllowMethods: "GET,POST,PUT,DELETE",
+		AllowHeaders: "Origin, Content-Type, Accept, Authorization",
+		AllowCredentials: true,
+	}))
 
 	routes.AuthRoutes(app, db)
 	routes.PostRoutes(app, db)

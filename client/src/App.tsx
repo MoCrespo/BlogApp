@@ -6,6 +6,7 @@ import Register from './pages/register';
 import Posts from './pages/posts';
 import PostDetail from './pages/postDetail';
 import Profile from './pages/profile';
+import ProfileEdit from './pages/ProfileEdit';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/posts" element={<Posts />} />
           <Route path="/posts/:id" element={<PostDetail />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="profile/edit" element={<ProfileEdit />} />
         </Routes>
       </Router>
     </Provider>

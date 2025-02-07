@@ -9,6 +9,7 @@ import Profile from './pages/profile';
 import ProfileEdit from './pages/ProfileEdit';
 import NewPost from './pages/NewPost';
 import PrivateRoute from './components/PrivateRoute';
+import PageNotFound from './pages/PageNotFound';
 
 function App() {
   return (
@@ -57,6 +58,7 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Router>
     </Provider>

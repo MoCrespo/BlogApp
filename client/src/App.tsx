@@ -8,6 +8,7 @@ import PostDetail from './pages/postDetail';
 import Profile from './pages/profile';
 import ProfileEdit from './pages/ProfileEdit';
 import NewPost from './pages/NewPost';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   return (
@@ -16,11 +17,46 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/posts" element={<Posts />} />
-          <Route path="/posts/:id" element={<PostDetail />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="profile/edit" element={<ProfileEdit />} />
-          <Route path="/posts/new" element={<NewPost />} />
+          <Route
+            path="/posts"
+            element={
+              <PrivateRoute>
+                <Posts />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/posts/:id"
+            element={
+              <PrivateRoute>
+                <PostDetail />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="profile"
+            element={
+              <PrivateRoute>
+                <Profile />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="profile/edit"
+            element={
+              <PrivateRoute>
+                <ProfileEdit />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/posts/new"
+            element={
+              <PrivateRoute>
+                <NewPost />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </Router>
     </Provider>

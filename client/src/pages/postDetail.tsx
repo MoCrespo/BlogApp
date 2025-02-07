@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../api/api';
 import { Link } from 'react-router-dom';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 interface Post {
   id: number;
@@ -51,11 +52,7 @@ const PostDetail: React.FC = () => {
         >
           ← Back to Posts
         </Link>
-        {loading && (
-          <div className="flex justify-center items-center py-10">
-            <div className="w-12 h-12 border-4 border-t-blue-500 border-gray-300 rounded-full animate-spin"></div>
-          </div>
-        )}
+        {loading && <LoadingSpinner />}
         {error && <p className="text-red-500">{error}</p>}
         {post && (
           <div className="bg-gray-800 p-6 rounded shadow">

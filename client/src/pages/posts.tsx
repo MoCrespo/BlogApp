@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../api/api';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 interface Post {
   id: number;
@@ -42,11 +43,7 @@ const Posts: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100 p-4">
       <h1 className="text-3xl font-bold mb-6">Posts</h1>
-      {loading && (
-        <div className="flex justify-center items-center py-10">
-          <div className="w-12 h-12 border-4 border-t-blue-500 border-gray-300 rounded-full animate-spin"></div>
-        </div>
-      )}
+      {loading && <LoadingSpinner />}
       {error && <p className="text-red-500">{error}</p>}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {posts.map((post) => (

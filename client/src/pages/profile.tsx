@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../api/api';
 import { Link, useNavigate } from 'react-router-dom';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 interface UserProfile {
   id: number;
@@ -36,9 +37,7 @@ const Profile: React.FC = () => {
     <div className="min-h-screen bg-gray-900 text-gray-100 p-4">
       <div className="max-w-3xl mx-auto bg-gray-800 p-6 rounded shadow">
         {loading ? (
-          <div className="flex justify-center items-center py-10">
-            <div className="w-12 h-12 border-4 border-t-blue-500 border-gray-300 rounded-full animate-spin"></div>
-          </div>
+          <LoadingSpinner />
         ) : error ? (
           <p className="text-red-500">{error}</p>
         ) : profile ? (

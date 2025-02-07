@@ -1,5 +1,3 @@
-// src/pages/ProfileEdit.tsx
-
 import React, { useEffect, useState } from 'react';
 import api from '../api/api';
 import { useNavigate } from 'react-router-dom';
@@ -40,14 +38,12 @@ const ProfileEdit: React.FC = () => {
     fetchProfile();
   }, []);
 
-  // دالة لحفظ التعديلات
   const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSaving(true);
     setError(null);
     setSuccess(null);
     try {
-      // نفترض أن الخادم يستقبل تحديث الملف الشخصي عبر PUT على endpoint "auth/profile"
       const response = await api.put('/profile', { username, email });
       setSuccess('Profile updated successfully');
       setTimeout(() => {

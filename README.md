@@ -48,10 +48,6 @@ go mod download
 First, create a `.env` file in server folder with all the required environment variables:
 
 ```bash
-# .env
-PORT=3000
-NODE_ENV=dev
-
 # DB
 POSTGRES_USER=your-user
 POSTGRES_PASSWORD=your-password

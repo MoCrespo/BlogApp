@@ -10,10 +10,20 @@ interface Post {
   created_at: string;
 }
 
+interface UserProfile {
+  id: number;
+  username: string;
+  email: string;
+}
+
 const Posts: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+
+  const [user, setUser] = useState<UserProfile | null>(null);
+  const [loadingProfile, setLoadingProfile] = useState<boolean>(false);
+  const [profileError, setProfileError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -32,6 +42,21 @@ const Posts: React.FC = () => {
     fetchPosts();
   }, []);
 
+  useEffect(() => {
+    const fetchProfile = async () => {
+      setLoadingProfile(true);
+      try {
+        const response = await api.get('/profile');
+        setUser(response.data);
+      } catch (err: any) {
+        console.error(err);
+        setProfileError(err.response?.data?.error || 'Error fetching profile');
+      } finally {
+        setLoadingProfile(false);
+      }
+    };
+    fetchProfile();
+  }, []);
   const formatDate = (dateString: string): string => {
     return new Date(dateString).toLocaleDateString('en-US', {
       month: 'short',
@@ -41,7 +66,17 @@ const Posts: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100 p-4">
+    <div className="min-h-screen bg-gray-900 text-gray-100 p-4 relative">
+      {loadingProfile}
+      {profileError && <p className="text-red-500">{profileError}</p>}
+      {user && (
+        <Link to="/profile">
+          <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold">
+            {user.username.charAt(0).toUpperCase()}
+          </div>
+        </Link>
+      )}
+
       <h1 className="text-3xl font-bold mb-6">Posts</h1>
       {loading && <LoadingSpinner />}
       {error && <p className="text-red-500">{error}</p>}

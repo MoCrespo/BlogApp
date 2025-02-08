@@ -10,12 +10,14 @@ import ProfileEdit from './pages/ProfileEdit';
 import NewPost from './pages/NewPost';
 import PrivateRoute from './components/PrivateRoute';
 import PageNotFound from './pages/PageNotFound';
+import Home from './pages/Home';
 
 function App() {
   return (
     <Provider store={store}>
       <Router>
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route
